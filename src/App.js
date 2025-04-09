@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import ProductCard from './components/ProductCard';
+import Cart from './components/Cart';
 import './App.css';
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
+
+  const products = [
+    {
+      id: 1,
+      name: "Wireless Headphones",
+      price: 49.99,
+      image: "https://via.placeholder.com/200x150?text=Headphones"
+    },
+    {
+      id: 2,
+      name: "Smart Watch",
+      price: 89.99,
+      image: "https://via.placeholder.com/200x150?text=Smart+Watch"
+    }
+  ];
+
+  const addToCart = (product) => {
+    setCartItems([...cartItems, product]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>🛍️ My eCommerce Store</h1>
+      <div className="products">
+        {products.map(product => (
+          <ProductCard key={product.id} product={product} addToCart={addToCart} />
+        ))}
+      </div>
+      <Cart items={cartItems} />
     </div>
   );
 }
 
 export default App;
+
